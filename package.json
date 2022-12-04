@@ -1,0 +1,36 @@
+{
+  "name": "5minAI",
+  "packageManager": "yarn@3.3.0",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "targets": {
+    "default": {
+      "distDir": "./dist"
+    }
+  },
+  "@parcel/transformer-js": {
+    "inlineFS": false,
+    "inlineEnvironment": true
+  },
+  "scripts": {
+    "nuke-dist": "yarn rimraf dist",
+    "watch": "yarn parcel watch",
+    "build": "yarn nuke-dist && yarn parcel build",
+    "develop": "yarn nuke-dist && yarn parcel"
+  },
+  "dependencies": {
+    "parcel": "^2.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.4",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.10",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.0",
+    "process": "^0.11.10"
+  }
+}
