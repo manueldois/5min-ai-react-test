@@ -15,10 +15,11 @@
       "allowJs": true,
       "jsx": "react",
       "rootDir": "src",
-      "noImplicitReturns": true,
-      "noImplicitThis": true,
+      "noImplicitReturns": false,
+      "noImplicitThis": false,
       "noImplicitAny": false,
-      "strictNullChecks": true,
+      "strictNullChecks": false,
+      "useUnknownInCatchVariables": false,
       "noEmit": true
     },
     "exclude": [

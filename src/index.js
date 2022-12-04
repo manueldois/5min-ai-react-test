@@ -1,6 +1,25 @@
 import { createRoot } from "react-dom/client";
-import { App } from "./App";
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+import { MovieSearchPage, loader as MovieSearchPageLoader } from "./pages/MovieSearchPage.tsx";
+import { MovieDetailPage, loader as MovieDetailPageLoader } from "./pages/MovieDetailPage";
 
-const container = document.getElementById("app");
-const root = createRoot(container)
-root.render(<App />);
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <MovieSearchPage />,
+        loader: MovieSearchPageLoader,
+    },
+    {
+        path: "movie/:id",
+        element: <MovieDetailPage />,
+        loader: MovieDetailPageLoader,
+    },
+]);
+
+createRoot(document.getElementById("app")).render(
+    <RouterProvider router={router} />
+);
+
