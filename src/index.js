@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         loader: MovieDetailPageLoader,
     },
 ], {
-    basename: "/5min-ai-react-test/",
+    basename: process.env.BASE_URL,
 });
 
 createRoot(document.getElementById("app")).render(
