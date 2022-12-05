@@ -41,6 +41,8 @@ jobs:
           
       - name: Install packages 📦
         run: yarn
+        
+      - run: env
       
       - name: Build 🏗️
         run: yarn run build
