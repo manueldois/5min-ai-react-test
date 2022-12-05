@@ -2,10 +2,13 @@
   "name": "5minAI",
   "packageManager": "yarn@3.3.0",
   "source": "src/index.html",
-  "browserslist": "> 0.5%, last 2 versions, not dead",
   "targets": {
     "default": {
-      "distDir": "./dist"
+      "distDir": "./dist",
+      "publicUrl": ".",
+      "engines": {
+        "browsers": "> 0.5%, last 2 versions, not dead"
+      }
     }
   },
   "@parcel/transformer-js": {

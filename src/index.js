@@ -18,7 +18,9 @@ const router = createBrowserRouter([
         element: <MovieDetailPage />,
         loader: MovieDetailPageLoader,
     },
-]);
+], {
+    basename: "/5min-ai-react-test/",
+});
 
 createRoot(document.getElementById("app")).render(
     <RouterProvider router={router} />
