@@ -44,7 +44,7 @@ jobs:
         
       - name: Build 🏗️
         env:
-          BASE_URL: ${{ steps.deployment.outputs.page_url }}
+          BASE_URL: /5min-ai-react-test
         run: yarn run build
         
       - name: Setup Pages 🔧
