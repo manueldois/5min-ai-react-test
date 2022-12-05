@@ -1,17 +1,20 @@
 import React from 'react'
-import { redirect, useLoaderData, useParams } from 'react-router-dom';
-import { getMovieById } from '../fetchers';
+import { useLoaderData, useParams } from 'react-router-dom';
+import { getMovieById, IMovieMoreDetail, THE_MOVIE_DB_API_IMAGES_BASE_URL } from '../api';
 
 export function MovieDetailPage() {
     const params = useParams();
-    const { id, movie } = useLoaderData() as any;
-
+    const { movie: m } = useLoaderData() as {
+        movie: IMovieMoreDetail
+    };
 
     return (
         <main>
             <h1>Movie detail</h1>
-            <span>{params.id}</span>
-            <span> {JSON.stringify(movie)} </span>
+            <h3>{m.title}</h3>
+            {m.backdrop_path && <img src={`${THE_MOVIE_DB_API_IMAGES_BASE_URL}/w500/${m.backdrop_path}`} alt="" />}
+            <p>{m.overview}</p>
+            <p>Vote average: {m.vote_average} from {m.vote_count} reviews</p>
         </main>
     )
 }
@@ -20,7 +23,7 @@ export async function loader({ params }) {
     const id = params.id
 
     if (id) {
-        const movie = await getMovieById(id).then((res: any) => res.json())
+        const movie = await getMovieById(id)
         return { id, movie };
     }
 

@@ -1,6 +1,8 @@
-const { THE_MOVIE_DB_API_BASE_URL, THE_MOVIE_DB_API_TOKEN } = process.env
+export const THE_MOVIE_DB_API_BASE_URL = process.env.THE_MOVIE_DB_API_BASE_URL,
+    THE_MOVIE_DB_API_TOKEN = process.env.THE_MOVIE_DB_API_TOKEN,
+    THE_MOVIE_DB_API_IMAGES_BASE_URL = process.env.THE_MOVIE_DB_API_IMAGES_BASE_URL
 
-interface IMovieDetail {
+export interface IMovieDetail {
     title: string,
     id: number,
     backdrop_path: string,
@@ -10,9 +12,10 @@ interface IMovieDetail {
     vote_average: number,
     vote_count: number,
     adult: boolean,
+    overview: string,
 }
 
-interface IMovieMoreDetail extends IMovieDetail {
+export interface IMovieMoreDetail extends IMovieDetail {
     homepage: string,
     tagline: string,
     genres: {
@@ -21,25 +24,18 @@ interface IMovieMoreDetail extends IMovieDetail {
     }
 }
 
-interface ISearchMoviesByNameResponse {
+export interface ISearchMoviesByNameResponse {
     total_results: number,
     total_pages: number
     page: number,
     results: IMovieDetail[]
 }
 
-interface ISearchMoviesByNameResponse {
-    total_results: number,
-    total_pages: number
-    page: number,
-    results: IMovieDetail[]
-}
-
-
-export async function searchMoviesByName(q: string): Promise<ISearchMoviesByNameResponse> {
+export async function searchMoviesByName(q: string, page = '1'): Promise<ISearchMoviesByNameResponse> {
     return fetch(
         `${THE_MOVIE_DB_API_BASE_URL}/search/movie?` + new URLSearchParams({
-            query: q
+            query: q,
+            page: page,
         }),
         {
             method: 'GET',
@@ -48,7 +44,7 @@ export async function searchMoviesByName(q: string): Promise<ISearchMoviesByName
                 'Authorization': `Bearer ${THE_MOVIE_DB_API_TOKEN}`
             },
         }
-    ) as any
+    ).then(res => res.json())
 }
 
 export async function getMovieById(id: number): Promise<IMovieMoreDetail> {
@@ -61,5 +57,5 @@ export async function getMovieById(id: number): Promise<IMovieMoreDetail> {
                 'Authorization': `Bearer ${THE_MOVIE_DB_API_TOKEN}`
             },
         }
-    ) as any
+    ).then(res => res.json())
 }

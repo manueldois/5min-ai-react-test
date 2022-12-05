@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react'
-import { Form, useLoaderData, useSubmit } from 'react-router-dom';
-import { searchMoviesByName } from '../fetchers';
+import { Form, Link, useLoaderData, useNavigate, useSubmit } from 'react-router-dom';
+import { IMovieDetail, searchMoviesByName } from '../api';
+import { MoviesList } from '../components/MoviesList';
+import { PagePicker } from '../components/PagePicker';
 
 export function MovieSearchPage() {
-    const { q, movies } = useLoaderData() as any;
+    const { q, movies, total_pages, page } = useLoaderData() as {
+        q: string | undefined,
+        movies: IMovieDetail[] | undefined,
+        total_pages: number | undefined,
+        page: number | undefined,
+    };
+
     const submit = useSubmit();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const input = (document?.getElementById("q") as any)
@@ -17,7 +26,7 @@ export function MovieSearchPage() {
             <Form id="search-form" role="search">
                 <input
                     id="q"
-                    aria-label="Search contacts"
+                    aria-label="Search"
                     placeholder="Search"
                     type="search"
                     name="q"
@@ -27,9 +36,21 @@ export function MovieSearchPage() {
                     }}
                 />
             </Form>
-            <ul>
-                {JSON.stringify(movies)}
-            </ul>
+
+            {
+                movies &&
+                <section>
+                    <MoviesList
+                        movies={movies}
+                    />
+                    <PagePicker
+                        page={page}
+                        total_pages={total_pages}
+                        onSelectPage={(p) => navigate(`/?q=${q}&p=${p}`)}
+                    />
+                </section>
+            }
+
         </main>
     )
 }
@@ -37,9 +58,10 @@ export function MovieSearchPage() {
 export async function loader({ request }) {
     const url = new URL(request.url);
     const q = url.searchParams.get("q");
+    const p = url.searchParams.get("p");
     if (q) {
-        const movies = await searchMoviesByName(q).then((res: any) => res.json())
-        return { q, movies: movies.results };
+        const res = await searchMoviesByName(q, p ? p : undefined)
+        return { q, movies: res.results, total_pages: res.total_pages, page: res.page };
     }
     return { q }
 }
