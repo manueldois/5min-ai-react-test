@@ -1,0 +1,32 @@
+.page-picker {
+    span {
+        font-size: 2em;
+        padding: 0 20px;
+    }
+
+    button {
+        cursor: pointer;
+        font-size: 2em;
+        border: none;
+        color: navy;
+        border-radius: 5px;
+        padding: 0 20px;
+        background: none;
+
+        &.selected {
+            background-color: blue;
+            color: white
+        }
+
+        &:disabled {
+            cursor: none;
+            color: rgb(150, 150, 150);
+            background: none;
+        }
+
+        &:hover {
+            background-color: rgb(238, 238, 238);
+            color: navy;
+        }
+    }
+}

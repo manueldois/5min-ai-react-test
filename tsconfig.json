@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
       "outDir": "build/dist",
-      "module": "commonjs",
-      "moduleResolution": "node",
+      "module": "ES2020",
+      "moduleResolution": "NodeNext",
       "esModuleInterop": true,
       "target": "ES6",
       "lib": [

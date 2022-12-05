@@ -1,7 +1,8 @@
 import React from 'react'
+import './page-picker.scss'
 
 export function PagePicker({ page, total_pages, onSelectPage }) {
-    const show = 7
+    const show = 5
 
     let arr: any[] = [page]
 
@@ -13,7 +14,7 @@ export function PagePicker({ page, total_pages, onSelectPage }) {
         if (page + i <= total_pages) {
             arr.push(page + i)
         }
-        if (arr.length === show) {
+        if (arr.length >= show) {
             break
         }
     }
@@ -25,7 +26,7 @@ export function PagePicker({ page, total_pages, onSelectPage }) {
     }
 
     return (
-        <section>
+        <section className='page-picker'>
             <button
                 onClick={() => onSelectPage(page - 1)}
                 disabled={page < 2}>
@@ -37,6 +38,7 @@ export function PagePicker({ page, total_pages, onSelectPage }) {
                     i
                         ?
                         <button
+                            key={i}
                             onClick={() => onSelectPage(i)}
                             className={i === page ? 'selected' : ''}
                         >
@@ -44,8 +46,10 @@ export function PagePicker({ page, total_pages, onSelectPage }) {
                         </button>
 
                         :
-                        <span>
-                            ...
+                        <span
+                            key={i}
+                        >
+                            &#x2026;
                         </span>
                 )
             }

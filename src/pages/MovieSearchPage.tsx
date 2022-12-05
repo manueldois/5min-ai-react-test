@@ -3,6 +3,8 @@ import { Form, Link, useLoaderData, useNavigate, useSubmit } from 'react-router-
 import { IMovieDetail, searchMoviesByName } from '../api';
 import { MoviesList } from '../components/MoviesList';
 import { PagePicker } from '../components/PagePicker';
+import { SearchBox } from '../components/SearchBox';
+import './movie-search-page.scss'
 
 export function MovieSearchPage() {
     const { q, movies, total_pages, page } = useLoaderData() as {
@@ -21,34 +23,33 @@ export function MovieSearchPage() {
     }, [q]);
 
     return (
-        <main>
+        <main className='movie-search-page'>
+            <br style={{ marginTop: 50 }}></br>
+
             <h1>Movie search</h1>
-            <Form id="search-form" role="search">
-                <input
-                    id="q"
-                    aria-label="Search"
-                    placeholder="Search"
-                    type="search"
-                    name="q"
-                    defaultValue={q}
-                    onChange={(event) => {
-                        submit(event.currentTarget.form);
-                    }}
-                />
-            </Form>
+
+            <SearchBox defaultValue={q} submit={submit} />
+
+            <br style={{ marginTop: 50 }}></br>
 
             {
-                movies &&
-                <section>
-                    <MoviesList
-                        movies={movies}
-                    />
-                    <PagePicker
-                        page={page}
-                        total_pages={total_pages}
-                        onSelectPage={(p) => navigate(`/?q=${q}&p=${p}`)}
-                    />
-                </section>
+                movies?.length
+                    ?
+                    <React.Fragment>
+                        <MoviesList
+                            movies={movies}
+                        />
+
+                        <br style={{ marginTop: 50 }}></br>
+
+                        <PagePicker
+                            page={page}
+                            total_pages={total_pages}
+                            onSelectPage={(p) => navigate(`/?q=${q}&p=${p}`)}
+                        />
+                    </React.Fragment>
+                    :
+                    <h3>No movies found</h3>
             }
 
         </main>

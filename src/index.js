@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { MovieSearchPage, loader as MovieSearchPageLoader } from "./pages/MovieSearchPage.tsx";
 import { MovieDetailPage, loader as MovieDetailPageLoader } from "./pages/MovieDetailPage";
+import './style.css';
 
 const router = createBrowserRouter([
     {
