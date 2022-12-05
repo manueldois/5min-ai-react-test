@@ -49,7 +49,7 @@ export function MovieSearchPage() {
                         />
                     </React.Fragment>
                     :
-                    <h3>No movies found</h3>
+                    q && <h3>No movies found</h3>
             }
 
         </main>
