@@ -49,7 +49,7 @@ jobs:
         uses: actions/configure-pages@v2
         
       - name: Add 404 redirect
-        run: echo "permalink: /index.html" > dist/404.md
+        run: 'echo "permalink: /index.html" > dist/404.md'
         
       - name: Upload artifact 🔧
         uses: actions/upload-pages-artifact@v1
