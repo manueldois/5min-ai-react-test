@@ -41,8 +41,10 @@ jobs:
           
       - name: Install packages 📦
         run: yarn
-      
+        
       - name: Build 🏗️
+        env:
+          BASE_URL: ${{ steps.deployment.outputs.page_url }}
         run: yarn run build
         
       - name: Setup Pages 🔧
